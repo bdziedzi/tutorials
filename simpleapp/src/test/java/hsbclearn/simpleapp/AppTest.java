@@ -129,7 +129,7 @@ public class AppTest
         assertTrue(inputData == testDataInputObject.GetData());
     }
 
-    //DataProcessor 
+    //DataProcessor:
     @Test
     public void DP_testIfExecuteNotThrowingExceptionIfNullPassedAsArgument() 
     {    	
@@ -240,6 +240,7 @@ public class AppTest
     	dp.setSortMode("Unknown mode");
     }
     
+    //DataOutput:
     @Test
     public void DO_testIfPrintListThrowsExceptionWhenInputListIsNullOrEmpty() throws Exception
     {

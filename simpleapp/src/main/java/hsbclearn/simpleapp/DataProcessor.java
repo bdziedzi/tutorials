@@ -10,26 +10,11 @@ import java.util.List;
 
 public class DataProcessor implements IDataProcessor 
 {
-	int sortMode;
+	private int sortMode;
 	
 	DataProcessor()
 	{
 		sortMode = 1;
-	}
-	
-	public void setSortMode(String sortType) throws Exception
-	{
-		if (sortType != null && !sortType.isEmpty())
-		{
-			if (sortType == "DSC" )
-				sortMode = 0;
-			else if (sortType == "ASC")
-				sortMode = 1;
-			else
-				throw new Exception("Unknown sort mode");
-		}
-		else
-			throw new Exception("sortType cannot be null or empty");
 	}
 	
 	private int[] toInt(HashSet<Integer> set) 
@@ -79,6 +64,21 @@ public class DataProcessor implements IDataProcessor
 	private void SortIntegerWrapperList(List<IIntegerWrapper> inputIWList)
 	{
 		Collections.sort(inputIWList, ((sortMode == 1) ? IntegerWrapper.Comparators.ASC : IntegerWrapper.Comparators.DSC) );			
+	}
+	
+	public void setSortMode(String sortType) throws Exception
+	{
+		if (sortType != null && !sortType.isEmpty())
+		{
+			if (sortType == "DSC" )
+				sortMode = 0;
+			else if (sortType == "ASC")
+				sortMode = 1;
+			else
+				throw new Exception("Unknown sort mode");
+		}
+		else
+			throw new Exception("sortType cannot be null or empty");
 	}
 	
 	public List<IIntegerWrapper> Execute (List<IIntegerWrapper> inputIWList) 
