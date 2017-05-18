@@ -8,7 +8,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class AppTest 
 {
@@ -69,7 +71,6 @@ public class AppTest
     	// if new list not created CountData() returns NullPointerException
         assertTrue(testData.CountData() == 0);
     }
-
     
     @Test
     public void DI_testIfDataInputObjectInitializeWithIntList() 
@@ -127,4 +128,131 @@ public class AppTest
 		
         assertTrue(inputData == testDataInputObject.GetData());
     }
+
+    //DataProcessor 
+    @Test
+    public void DP_testIfExecuteNotThrowingExceptionIfNullPassedAsArgument() 
+    {    	
+    	List<IIntegerWrapper> inputData = null;
+    	IntegerWrapper tmpIntWrapper;    	
+    	Random generator;
+    	DataInput testDataInputObject;
+        		
+		testDataInputObject = new DataInput(inputData);				
+		
+    	DataProcessor dp = new DataProcessor();
+    	
+    	dp.Execute(testDataInputObject.GetData());
+    	
+    	assertTrue(true);
+    }
+    
+    @Test
+    public void DP_testIfExecuteRemovesDuplicatesAndSortList()
+    {       	
+    	int [] inputData = {3,2,3,2,1,3};
+    	List<IIntegerWrapper> outputData = null;    	
+    	int [] inputExpectedData = {1,2,3,6};
+    	List<IIntegerWrapper> outputExpectedData = null;    	
+    	IntegerWrapper tmpIntWrapper;    	
+    	DataInput testDataInputObject, testDataExpectedObject;
+    	int ii = 0;
+		
+		testDataInputObject = new DataInput(inputData);
+		
+		testDataExpectedObject = new DataInput(inputExpectedData);
+		
+    	DataProcessor dp = new DataProcessor();
+    	
+    	try 
+    	{
+			dp.setSortMode("ASC");
+		} 
+    	catch (Exception e) 
+    	{			
+			e.printStackTrace();
+		}
+    	
+    	outputData = dp.Execute(testDataInputObject.GetData());
+    	
+    	Iterator<IIntegerWrapper> itr = outputData.iterator();
+    	
+    	while (itr.hasNext())
+    	{
+    		IIntegerWrapper tmpWrapper = (IIntegerWrapper) itr.next();
+    		assertTrue(tmpWrapper.GetValue() == inputExpectedData[ii]);
+    		ii++;
+    	}    	
+    }
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+    
+    @Test
+    public void DP_testIfsetSortModeThrowsExceptionForNullMode() throws Exception
+    {
+    	int [] inputData = {3,2,3,2,1,3};
+    	DataInput tmpDataInputObject;
+    	DataProcessor dp;
+    	  		
+    	tmpDataInputObject = new DataInput(inputData);
+		
+    	dp = new DataProcessor();
+    	
+    	thrown.expect(Exception.class);
+    	thrown.expectMessage("sortType cannot be null or empty");
+    	
+    	dp.setSortMode(null);
+    }
+    
+    @Test
+    public void DP_testIfsetSortModeThrowsExceptionForEmptyMode() throws Exception
+    {
+    	int [] inputData = {3,2,3,2,1,3};
+    	DataInput tmpDataInputObject;
+    	DataProcessor dp;
+    	  		
+    	tmpDataInputObject = new DataInput(inputData);
+		
+    	dp = new DataProcessor();
+    	
+    	thrown.expect(Exception.class);
+    	thrown.expectMessage("sortType cannot be null or empty");
+    	
+    	dp.setSortMode("");
+    }
+    
+    
+    @Test
+    public void DP_testIfsetSortModeThrowsExceptionForUnknownMode() throws Exception
+    {
+    	int [] inputData = {3,2,3,2,1,3};
+    	DataInput tmpDataInputObject;
+    	DataProcessor dp;
+    	  		
+    	tmpDataInputObject = new DataInput(inputData);
+		
+    	dp = new DataProcessor();
+    	
+    	thrown.expect(Exception.class);
+    	thrown.expectMessage("Unknown sort mode");
+    	
+    	dp.setSortMode("Unknown mode");
+    }
+    
+    @Test
+    public void DO_testIfPrintListThrowsExceptionWhenInputListIsNullOrEmpty() throws Exception
+    {
+    	DataOutput testDataOut;
+		List<IIntegerWrapper> outputData = null;  
+    	
+    	testDataOut = new DataOutput();
+    	
+    	thrown.expect(Exception.class);
+    	thrown.expectMessage("List passed as argument is null or empty");
+    	
+    	testDataOut.PrintList(outputData);
+
+    }
+    
 }
