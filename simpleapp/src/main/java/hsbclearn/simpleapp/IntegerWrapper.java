@@ -1,6 +1,7 @@
 package hsbclearn.simpleapp;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 public class IntegerWrapper implements IIntegerWrapper, Comparable<IIntegerWrapper>
 {
@@ -29,6 +30,26 @@ public class IntegerWrapper implements IIntegerWrapper, Comparable<IIntegerWrapp
 		value = newValue;
 	}
 
+	@Override
+    public boolean equals(Object oo) {
+
+        if (oo == this) 
+        	return true;
+        if (!(oo instanceof IntegerWrapper)) {
+            return false;
+        }
+
+        IntegerWrapper other = (IntegerWrapper) oo;
+
+        return (other.GetValue() == value);
+    }
+
+    @Override
+    public int hashCode() 
+    {   
+        return  Objects.hash(value);
+    }    
+    
 	public int compareTo(IIntegerWrapper arg0) 
 	{
 		return Comparators.ASC.compare(this, arg0);

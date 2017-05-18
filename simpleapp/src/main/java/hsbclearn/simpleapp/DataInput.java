@@ -38,6 +38,7 @@ public class DataInput implements IDataInput
 		}
 	}	
 	
+	/*
 	public void PrintData() 
 	{
 		Iterator<IIntegerWrapper> itr = dataList.iterator();
@@ -48,16 +49,18 @@ public class DataInput implements IDataInput
 			System.out.print(val + " ");
 		}
 		System.out.println();		
-	}
+	} */
 	
 	public List <IIntegerWrapper> GetData()
 	{
 		return dataList;		
 	}
 
+	/*
 	public int CountData() 
 	{		
 		return dataList.size();
 	}
+	*/
 	
 }

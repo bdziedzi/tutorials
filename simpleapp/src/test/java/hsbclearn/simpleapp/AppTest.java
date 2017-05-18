@@ -59,7 +59,7 @@ public class AppTest
     	DataInput testData = new DataInput(inputList);    	
     	
     	// if new list not created CountData() returns NullPointerException
-        assertTrue(testData.CountData() == 0);
+        assertTrue(testData.GetData().size() == 0);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class AppTest
     	DataInput testData = new DataInput(inputList);    	
     	
     	// if new list not created CountData() returns NullPointerException
-        assertTrue(testData.CountData() == 0);
+        assertTrue(testData.GetData().size() == 0);
     }
     
     @Test
