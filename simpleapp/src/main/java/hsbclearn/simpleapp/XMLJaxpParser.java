@@ -2,14 +2,24 @@ package hsbclearn.simpleapp;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -17,19 +27,54 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-
 public class XMLJaxpParser implements IXMLMessageParser {
 
 	@Override
 	public String saveAsXML(List<IIntegerWrapper> injIWlist) {
-		// TODO Auto-generated method stub
-		return null;
+
+		String output = null;
+		try 
+		{
+			DocumentBuilderFactory dbFactory =  DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.newDocument();
+			// root element
+			Element rootElement = doc.createElement("IntegerWrapperElements");
+			doc.appendChild(rootElement);
+			
+			int idx = 0;
+			for (IIntegerWrapper element : injIWlist) 
+			{
+				Element iwElement = doc.createElement("IntegerWrapper");
+		        rootElement.appendChild(iwElement);
+		        //Element index = doc.createElement("index");
+		        //iwElement.appendChild(index);
+		        //index.appendChild(doc.createTextNode(""+idx));
+		        Element value = doc.createElement("value");
+		        iwElement.appendChild(value);
+		        value.appendChild(doc.createTextNode(""+element.GetValue()));
+			}
+		
+			TransformerFactory tf = TransformerFactory.newInstance();
+			Transformer transformer = tf.newTransformer();
+			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+			StringWriter writer = new StringWriter();
+			transformer.transform(new DOMSource(doc), new StreamResult(writer));
+			output = writer.getBuffer().toString().replaceAll("\n|\r", "");
+			
+		} 
+		catch (Exception e)
+		{
+	        e.printStackTrace();
+	    }
+		         
+		return output;		
+
 	}
 
 	@Override
 	public List<IIntegerWrapper> readXML(String inXML) 
-	{
-		
+	{		
 		 //Create a empty link of users initially
         List<IIntegerWrapper> iwList = new ArrayList<IIntegerWrapper>();
         
@@ -52,52 +97,22 @@ public class XMLJaxpParser implements IXMLMessageParser {
             parser.parse(sourcexml);
  
             //populate the parsed users list in above created empty list; You can return from here also.
-            iwList = handler.GetList();
- 
-        } catch (SAXException e) {
+            iwList = handler.GetList(); 
+        } 
+        catch (SAXException e) 
+        {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (IOException e) {
+        } 
+        catch (IOException e) 
+        {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } finally {
- 
-        }
-        return iwList;
+        } 
+        
+        return iwList;		
 		
-		/*
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-		
-		SAXParser saxParser;
-		
-		userParserHandler
-		try 
-		{
-			saxParser = factory.newSAXParser();
-			saxParser.parse(inXML, this);			
-		} 
-		catch (ParserConfigurationException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (SAXException e) 
-		{
-			e.printStackTrace();
-		}
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
-		
-		return null;
-		*/
 	}
-	
-	 //This is the list which shall be populated while parsing the XML.
-    
- 
-  
-	 
 	    
 
 }

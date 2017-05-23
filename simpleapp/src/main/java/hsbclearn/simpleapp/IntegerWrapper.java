@@ -2,10 +2,13 @@ package hsbclearn.simpleapp;
 
 import java.util.Comparator;
 import java.util.Objects;
+import javax.xml.bind.annotation.*;
+
 
 public class IntegerWrapper implements IIntegerWrapper, Comparable<IIntegerWrapper>
 {
-
+	
+	@XmlElement(name="value")
 	private int value;
 	
 	public IntegerWrapper()

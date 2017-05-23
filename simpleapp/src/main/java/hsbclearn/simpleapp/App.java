@@ -14,11 +14,15 @@ public class App
         
         String inputXML = "<?xml version=\"1.0\" ?><IntegerWrapperElements><IntegerWrapper><value>100</value></IntegerWrapper><IntegerWrapper><value>-30</value></IntegerWrapper><IntegerWrapper><value>99</value></IntegerWrapper><IntegerWrapper><value>68</value></IntegerWrapper></IntegerWrapperElements>";
         
+        String inputXML2 = "<?xml version=\"1.0\" ?><IntegerWrapperElements><Lista><IntegerWrapper><value>100</value></IntegerWrapper><IntegerWrapper><value>-30</value></IntegerWrapper><IntegerWrapper><value>99</value></IntegerWrapper><IntegerWrapper><value>68</value></IntegerWrapper></Lista></IntegerWrapperElements>";
+        
         XMLDomParser xmldom = new XMLDomParser();
         
         XMLStaxParser xmlstax = new XMLStaxParser();
 
         XMLJaxpParser xmljaxp = new XMLJaxpParser();
+        
+        XMLJaxbParser xmljaxb = new XMLJaxbParser();
         
         try 
         {
@@ -32,7 +36,11 @@ public class App
 			
 			dto.PrintList(dtp.Execute(xmlstax.readXML(inputXML)));
 			
+			System.out.println(xmljaxp.saveAsXML(dti.GetData())); 	
+						
 			dto.PrintList(dtp.Execute(xmljaxp.readXML(inputXML)));
+			
+			xmljaxb.readXML(inputXML2);			
 			
 		} 
         catch (Exception e) 

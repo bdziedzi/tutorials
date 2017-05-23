@@ -34,9 +34,9 @@ public class XMLDomParser implements IXMLMessageParser {
 			{
 				Element iwElement = doc.createElement("IntegerWrapper");
 		        rootElement.appendChild(iwElement);
-		        Element index = doc.createElement("index");
-		        iwElement.appendChild(index);
-		        index.appendChild(doc.createTextNode(""+idx));
+		        //Element index = doc.createElement("index");
+		        //iwElement.appendChild(index);
+		        //index.appendChild(doc.createTextNode(""+idx));
 		        Element value = doc.createElement("value");
 		        iwElement.appendChild(value);
 		        value.appendChild(doc.createTextNode(""+element.GetValue()));
