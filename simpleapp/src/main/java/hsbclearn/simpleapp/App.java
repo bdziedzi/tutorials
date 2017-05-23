@@ -11,10 +11,29 @@ public class App
         DataInput dti = new DataInput(tmpIntTab);
         DataProcessor dtp = new DataProcessor();
         DataOutput dto = new DataOutput();
+        
+        String inputXML = "<?xml version=\"1.0\" ?><IntegerWrapperElements><IntegerWrapper><value>100</value></IntegerWrapper><IntegerWrapper><value>-30</value></IntegerWrapper><IntegerWrapper><value>99</value></IntegerWrapper><IntegerWrapper><value>68</value></IntegerWrapper></IntegerWrapperElements>";
+        
+        XMLDomParser xmldom = new XMLDomParser();
+        
+        XMLStaxParser xmlstax = new XMLStaxParser();
 
+        XMLJaxpParser xmljaxp = new XMLJaxpParser();
+        
         try 
         {
 			dto.PrintList(dtp.Execute(dti.GetData()));	
+			
+			System.out.println(xmldom.saveAsXML(dti.GetData())); 			
+			
+			dto.PrintList(dtp.Execute(xmldom.readXML(inputXML)));	
+			
+			System.out.println(xmlstax.saveAsXML(dti.GetData())); 	
+			
+			dto.PrintList(dtp.Execute(xmlstax.readXML(inputXML)));
+			
+			dto.PrintList(dtp.Execute(xmljaxp.readXML(inputXML)));
+			
 		} 
         catch (Exception e) 
         {			
