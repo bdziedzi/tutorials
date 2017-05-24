@@ -53,8 +53,8 @@ public class XMLJaxbParser implements IXMLMessageParser {
 		}
 		
 		
-		//return iwtmp.GetList(); `
-		return  null;
+		return iwtmp.GetList();
+		//return  null;
 	}
 
 }
