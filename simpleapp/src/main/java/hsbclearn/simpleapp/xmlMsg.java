@@ -2,13 +2,16 @@ package hsbclearn.simpleapp;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 @XmlRootElement(name="IntegerWrapperElements")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class xmlMsg 
 {
 	@XmlElementWrapper(name="Lista")
@@ -30,4 +33,14 @@ public class xmlMsg
 	{
 			this.dataList = injList;
 	}
+	
+	public static class ParentAdapter extends XmlAdapter<Object,Object>{
+        @Override
+        public Object marshal( Object arg0 ) throws Exception{ return arg0; }
+
+        @Override
+        public Object unmarshal( Object arg0 ) throws Exception{ return arg0; }
+    }
+
+
 }
