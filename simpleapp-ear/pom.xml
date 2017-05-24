@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>simpleapp-ear</artifactId>
+	<packaging>ear</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<version>6</version>
+					<modules>
+						<webModule>
+							<groupId>hsbclearn</groupId>
+							<artifactId>simpleapp-war</artifactId>
+ 							<contextRoot>/simpleapp</contextRoot>							
+						</webModule>
+					</modules>
+					<generateApplicationXml>true</generateApplicationXml>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>hsbclearn</groupId>
+			<artifactId>simpleapp</artifactId>
+			<version>0.1</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>hsbclearn</groupId>
+			<artifactId>simpleapp-war</artifactId>
+			<version>0.1</version>
+			<type>war</type>
+		</dependency>		
+	</dependencies>
+
+	<parent>
+		<groupId>hsbclearn</groupId>
+		<artifactId>simpleapp-parent</artifactId>
+		<version>0.1</version>
+	</parent>
+</project>
