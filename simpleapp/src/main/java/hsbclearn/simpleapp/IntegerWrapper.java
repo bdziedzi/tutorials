@@ -9,10 +9,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
-
-public class IntegerWrapper implements IIntegerWrapper, Comparable<IIntegerWrapper>
+@XmlAccessorType(XmlAccessType.FIELD)
+public class IntegerWrapper implements IIntegerWrapper, Comparable<IntegerWrapper>
 {
-
+	@XmlElement(name="value")
 	private int value;
 	
 	public IntegerWrapper()
@@ -57,24 +57,24 @@ public class IntegerWrapper implements IIntegerWrapper, Comparable<IIntegerWrapp
         return  Objects.hash(value);
     }    
     
-	public int compareTo(IIntegerWrapper arg0) 
+	public int compareTo(IntegerWrapper arg0) 
 	{
 		return Comparators.ASC.compare(this, arg0);
 	}
 	
 	 public static class Comparators {
 
-        public static Comparator<IIntegerWrapper> ASC = new Comparator<IIntegerWrapper>() 
+		public static Comparator<IntegerWrapper> ASC = new Comparator<IntegerWrapper>() 
         {            
-            public int compare(IIntegerWrapper o1, IIntegerWrapper o2) 
+            public int compare(IntegerWrapper o1, IntegerWrapper o2) 
             {
                 return o1.GetValue() - o2.GetValue();
             }
         };
         
-        public static Comparator<IIntegerWrapper> DSC = new Comparator<IIntegerWrapper>() 
+        public static Comparator<IntegerWrapper> DSC = new Comparator<IntegerWrapper>() 
         {            
-            public int compare(IIntegerWrapper o1, IIntegerWrapper o2) 
+            public int compare(IntegerWrapper o1, IntegerWrapper o2) 
             {
                 return o2.GetValue() - o1.GetValue();
             }

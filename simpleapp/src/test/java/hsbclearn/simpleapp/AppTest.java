@@ -55,7 +55,7 @@ public class AppTest
     @Test
     public void DI_testIfDataInputObjectCreateNewListIfInitializedWithNull1() 
     {
-    	ArrayList<IIntegerWrapper> inputList = null;
+    	ArrayList<IntegerWrapper> inputList = null;
     	DataInput testData = new DataInput(inputList);    	
     	
     	// if new list not created CountData() returns NullPointerException
@@ -79,7 +79,7 @@ public class AppTest
     	int [] outputIntList = new int[TAB_MAX_SIZE];
     	int index = 0;
     	
-    	List <IIntegerWrapper> outputData;
+    	List <IntegerWrapper> outputData;
     
 		Random generator = new Random(); 
 		for (int ii=0;ii<TAB_MAX_SIZE; ii++)
@@ -89,10 +89,10 @@ public class AppTest
     	
     	outputData = testDatainputObject.GetData();    	
     	
-    	Iterator<IIntegerWrapper> itr = outputData.iterator();
+    	Iterator<IntegerWrapper> itr = outputData.iterator();
 		while (itr.hasNext()) 
 		{
-			IIntegerWrapper tmpWrapper = (IIntegerWrapper) itr.next();
+			IntegerWrapper tmpWrapper = (IntegerWrapper) itr.next();
 			int val = tmpWrapper.GetValue();
 			
 			if (index < TAB_MAX_SIZE)
@@ -108,13 +108,13 @@ public class AppTest
     @Test
     public void DI_testIFDataInputObjectInitializeWithInegerWrapperList() 
     {
-    	List<IIntegerWrapper> inputData;
+    	List<IntegerWrapper> inputData;
     	IntegerWrapper tmpIntWrapper;
-    	List <IIntegerWrapper> outputData;  
+    	List <IntegerWrapper> outputData;  
     	Random generator;
     	DataInput testDataInputObject;
     	
-    	inputData = new ArrayList<IIntegerWrapper>();
+    	inputData = new ArrayList<IntegerWrapper>();
     	tmpIntWrapper = new IntegerWrapper();    	
     	generator = new Random(); 
     	
@@ -133,7 +133,7 @@ public class AppTest
     @Test
     public void DP_testIfExecuteNotThrowingExceptionIfNullPassedAsArgument() 
     {    	
-    	List<IIntegerWrapper> inputData = null;
+    	List<IntegerWrapper> inputData = null;
     	IntegerWrapper tmpIntWrapper;    	
     	Random generator;
     	DataInput testDataInputObject;
@@ -151,9 +151,9 @@ public class AppTest
     public void DP_testIfExecuteRemovesDuplicatesAndSortList()
     {       	
     	int [] inputData = {3,2,3,2,1,3};
-    	List<IIntegerWrapper> outputData = null;    	
+    	List<IntegerWrapper> outputData = null;    	
     	int [] inputExpectedData = {1,2,3,6};
-    	List<IIntegerWrapper> outputExpectedData = null;    	
+    	List<IntegerWrapper> outputExpectedData = null;    	
     	IntegerWrapper tmpIntWrapper;    	
     	DataInput testDataInputObject, testDataExpectedObject;
     	int ii = 0;
@@ -175,11 +175,11 @@ public class AppTest
     	
     	outputData = dp.Execute(testDataInputObject.GetData());
     	
-    	Iterator<IIntegerWrapper> itr = outputData.iterator();
+    	Iterator<IntegerWrapper> itr = outputData.iterator();
     	
     	while (itr.hasNext())
     	{
-    		IIntegerWrapper tmpWrapper = (IIntegerWrapper) itr.next();
+    		IntegerWrapper tmpWrapper = (IntegerWrapper) itr.next();
     		assertTrue(tmpWrapper.GetValue() == inputExpectedData[ii]);
     		ii++;
     	}    	
@@ -245,14 +245,15 @@ public class AppTest
     public void DO_testIfPrintListThrowsExceptionWhenInputListIsNullOrEmpty() throws Exception
     {
     	DataOutput testDataOut;
-		List<IIntegerWrapper> outputData = null;  
+    	String output = "";
+		List<IntegerWrapper> outputData = null;  
     	
     	testDataOut = new DataOutput();
     	
     	thrown.expect(Exception.class);
     	thrown.expectMessage("List passed as argument is null or empty");
     	
-    	testDataOut.PrintList(outputData);
+    	output = testDataOut.listout(outputData);
 
     }
     

@@ -1,4 +1,4 @@
-package hsbclearn.simpleapp;
+package hsbclearn.simpleapp.xmlparsers;
 
 import java.io.StringReader;
 import java.util.List;
@@ -9,13 +9,15 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 
+import hsbclearn.simpleapp.IntegerWrapper;
+
 public class XMLJaxbParser implements IXMLMessageParser {
 
-	private List <IIntegerWrapper> finalList;
+	private List <IntegerWrapper> finalList;
 
     
 	@Override
-	public String saveAsXML(List<IIntegerWrapper> injIWlist) {
+	public String saveAsXML(List<IntegerWrapper> injIWlist) {
 		// TODO Auto-generated method stub
 		
 		
@@ -24,7 +26,7 @@ public class XMLJaxbParser implements IXMLMessageParser {
 	}
 
 	@Override
-	public List<IIntegerWrapper> readXML(String inXML) {
+	public List<IntegerWrapper> readXML(String inXML) {
 
 		xmlMsg iwtmp = null;
 		

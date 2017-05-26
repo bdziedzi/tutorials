@@ -10,10 +10,11 @@
 	</properties>
 	
 	<parent>
-		<groupId>hsbclearn</groupId>
-		<artifactId>simpleapp-parent</artifactId>
-		<version>0.1</version>
-	</parent>
+        <groupId>hsbclearn</groupId>
+        <artifactId>simpleapp-parent</artifactId>
+        <version>0.1</version>
+        <relativePath>../simpleapp-parent/pom.xml</relativePath>
+    </parent> 
 	
 	<dependencies>
 		<dependency>

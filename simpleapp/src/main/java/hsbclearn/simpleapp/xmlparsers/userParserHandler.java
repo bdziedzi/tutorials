@@ -1,4 +1,4 @@
-package hsbclearn.simpleapp;
+package hsbclearn.simpleapp.xmlparsers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +7,11 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import hsbclearn.simpleapp.IntegerWrapper;
+
 public class userParserHandler extends DefaultHandler  {
 
-	private List<IIntegerWrapper> iwList = new ArrayList <IIntegerWrapper> ();
+	private List<IntegerWrapper> iwList = new ArrayList <IntegerWrapper> ();
 	
 
     
@@ -56,14 +58,14 @@ public class userParserHandler extends DefaultHandler  {
 		        
 		if (isvalue)
 		{
-			IIntegerWrapper iwtmp = new IntegerWrapper(Integer.parseInt(value));
+			IntegerWrapper iwtmp = new IntegerWrapper(Integer.parseInt(value));
 			
 			iwList.add(iwtmp);
 
 		}
 	}
 	
-	public List<IIntegerWrapper> GetList()
+	public List<IntegerWrapper> GetList()
 	{
 		return iwList;
 	}

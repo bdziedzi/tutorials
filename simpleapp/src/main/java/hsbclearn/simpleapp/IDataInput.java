@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface IDataInput 
 {
-	List <IIntegerWrapper> GetData();
+	List<IntegerWrapper> GetData();
 }

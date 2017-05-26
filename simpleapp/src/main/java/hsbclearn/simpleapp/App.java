@@ -1,5 +1,12 @@
 package hsbclearn.simpleapp;
 
+import hsbclearn.simpleapp.xmlparsers.XMLDomParser;
+import hsbclearn.simpleapp.xmlparsers.XMLJaxbParser;
+import hsbclearn.simpleapp.xmlparsers.XMLJaxpParser;
+import hsbclearn.simpleapp.xmlparsers.XMLStaxParser;
+
+//import hsbclearn.simpleapp.jms.JmsDataOutput;
+
 public class App 
 { 
 	public static void main(String[] args) 
@@ -24,23 +31,29 @@ public class App
         
         XMLJaxbParser xmljaxb = new XMLJaxbParser();
         
+        //JmsDataOutput jmsdto = new JmsDataOutput();
+        String output = "";
         try 
         {
-			dto.PrintList(dtp.Execute(dti.GetData()));	
+        	output = dto.listout(dtp.Execute(dti.GetData()));	
 			
 			System.out.println(xmldom.saveAsXML(dti.GetData())); 			
 			
-			dto.PrintList(dtp.Execute(xmldom.readXML(inputXML)));	
+			output = dto.listout(dtp.Execute(xmldom.readXML(inputXML)));	
 			
 			System.out.println(xmlstax.saveAsXML(dti.GetData())); 	
 			
-			dto.PrintList(dtp.Execute(xmlstax.readXML(inputXML)));
+			output = dto.listout(dtp.Execute(xmlstax.readXML(inputXML)));
 			
 			System.out.println(xmljaxp.saveAsXML(dti.GetData())); 	
 						
-			dto.PrintList(dtp.Execute(xmljaxp.readXML(inputXML)));
+			output = dto.listout(dtp.Execute(xmljaxp.readXML(inputXML)));
 			
-			xmljaxb.readXML(inputXML2);			
+			xmljaxb.readXML(inputXML2);	
+			
+			
+			//jmsdto.SendMsg("ALA MA PSA!");
+			
 			
 		} 
         catch (Exception e) 

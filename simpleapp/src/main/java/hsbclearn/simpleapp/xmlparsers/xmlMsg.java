@@ -1,4 +1,4 @@
-package hsbclearn.simpleapp;
+package hsbclearn.simpleapp.xmlparsers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,26 +10,26 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import hsbclearn.simpleapp.IntegerWrapper;
+
 @XmlRootElement(name="IntegerWrapperElements")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class xmlMsg 
 {
 	@XmlElementWrapper(name="Lista")
 	@XmlElement(name="IntegerWrapper")
-	private List <IIntegerWrapper> dataList;
-	//private List <IntegerWrapper> dataList;
+	private List <IntegerWrapper> dataList;
 
-	public List <IIntegerWrapper> GetList()
-	//public List <IntegerWrapper> GetList()
+
+	public List <IntegerWrapper> GetList()
 	{
 		if (this.dataList == null) 
-			this.dataList = new ArrayList();
+			this.dataList = new ArrayList<IntegerWrapper>();
 			
 	return this.dataList;
 	}
 	
-	public void SetList(List <IIntegerWrapper> injList)
-//	public void SetList(List <IntegerWrapper> injList)
+	public void SetList(List <IntegerWrapper> injList)
 	{
 			this.dataList = injList;
 	}

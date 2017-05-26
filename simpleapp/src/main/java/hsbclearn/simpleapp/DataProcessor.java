@@ -44,12 +44,12 @@ public class DataProcessor implements IDataProcessor
 		return retList;
 	} */
 	
-	private List<IIntegerWrapper> RemoveDuplicatesFromList(List<IIntegerWrapper> inputIWList)
+	private List<IntegerWrapper> RemoveDuplicatesFromList(List<IntegerWrapper> inputIWList)
 	{
 		//HashSet<IIntegerWrapper> removeDuplicatesSet = new HashSet<IIntegerWrapper>(inputIWList);
-		List<IIntegerWrapper> ivals = new ArrayList<IIntegerWrapper>();
+		List<IntegerWrapper> ivals = new ArrayList<IntegerWrapper>();
 		
-		Iterator<IIntegerWrapper> itr = inputIWList.iterator();
+		Iterator<IntegerWrapper> itr = inputIWList.iterator();
 		while (itr.hasNext()) 
 		{
 			IntegerWrapper tmpWrapper = (IntegerWrapper) itr.next();
@@ -58,18 +58,18 @@ public class DataProcessor implements IDataProcessor
 		}			
 		
 		
-		HashSet<IIntegerWrapper> removeDuplicatesSet = new HashSet<IIntegerWrapper>(inputIWList);
+		HashSet<IntegerWrapper> removeDuplicatesSet = new HashSet<IntegerWrapper>(inputIWList);
 		
-		List<IIntegerWrapper> retList = new ArrayList<IIntegerWrapper>(removeDuplicatesSet); 
+		List<IntegerWrapper> retList = new ArrayList<IntegerWrapper>(removeDuplicatesSet); 
 		
 		return retList;
 	}
 	
-	private void AddElementWithSumOfElementsToList(List<IIntegerWrapper> inputIWList)
+	private void AddElementWithSumOfElementsToList(List<IntegerWrapper> inputIWList)
 	{
 		int sum = 0;
 		
-		Iterator<IIntegerWrapper> itr = inputIWList.iterator();
+		Iterator<IntegerWrapper> itr = inputIWList.iterator();
 		while (itr.hasNext()) 
 		{
 			IntegerWrapper tmpWrapper = (IntegerWrapper) itr.next();
@@ -80,7 +80,7 @@ public class DataProcessor implements IDataProcessor
 		inputIWList.add(new IntegerWrapper(sum));
 	}
 	
-	private void SortIntegerWrapperList(List<IIntegerWrapper> inputIWList)
+	private void SortIntegerWrapperList(List<IntegerWrapper> inputIWList)
 	{
 		Collections.sort(inputIWList, ((sortMode == 1) ? IntegerWrapper.Comparators.ASC : IntegerWrapper.Comparators.DSC) );			
 	}
@@ -100,9 +100,9 @@ public class DataProcessor implements IDataProcessor
 			throw new Exception("sortType cannot be null or empty");
 	}
 	
-	public List<IIntegerWrapper> Execute (List<IIntegerWrapper> inputIWList) 
+	public List<IntegerWrapper> Execute (List<IntegerWrapper> inputIWList) 
 	{
-		List<IIntegerWrapper> returnList = null;
+		List<IntegerWrapper> returnList = null;
 		
 		if (inputIWList != null)
 		{

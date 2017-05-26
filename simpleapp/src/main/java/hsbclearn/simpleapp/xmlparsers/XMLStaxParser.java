@@ -1,4 +1,4 @@
-package hsbclearn.simpleapp;
+package hsbclearn.simpleapp.xmlparsers;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -16,10 +16,12 @@ import javax.xml.stream.events.Characters;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
+import hsbclearn.simpleapp.IntegerWrapper;
+
 public class XMLStaxParser implements IXMLMessageParser {
 
 	@Override
-	public String saveAsXML(List<IIntegerWrapper> injIWlist) {
+	public String saveAsXML(List<IntegerWrapper> injIWlist) {
 
 		String outputXMLString = null;
 		 
@@ -33,7 +35,7 @@ public class XMLStaxParser implements IXMLMessageParser {
 			xMLStreamWriter.writeStartDocument();
 			xMLStreamWriter.writeStartElement("IntegerWrapperElements");
    
-			for (IIntegerWrapper element : injIWlist)
+			for (IntegerWrapper element : injIWlist)
 			{
 	        	xMLStreamWriter.writeStartElement("IntegerWrapper");
 	    		xMLStreamWriter.writeCharacters(""+element.GetValue());
@@ -63,10 +65,10 @@ public class XMLStaxParser implements IXMLMessageParser {
 	}
 
 	@Override
-	public List<IIntegerWrapper> readXML(String inXML) {
+	public List<IntegerWrapper> readXML(String inXML) {
 		// TODO Auto-generated method stub
 		
-		List<IIntegerWrapper> retIWList = new ArrayList <IIntegerWrapper> ();
+		List<IntegerWrapper> retIWList = new ArrayList <IntegerWrapper> ();
 		
 		boolean isvalue = false;
 		

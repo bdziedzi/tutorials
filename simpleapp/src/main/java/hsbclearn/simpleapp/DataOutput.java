@@ -6,24 +6,29 @@ import java.util.List;
 public class DataOutput implements IDataOutput 
 {
 
-	public void PrintList(List<IIntegerWrapper> listToPrint) throws Exception 
+	public String listout(List<IntegerWrapper> listToPrint) throws Exception 
 	{
+		String output = "";
+		
 		if (listToPrint != null && !listToPrint.isEmpty())
 		{
-			Iterator<IIntegerWrapper> itr = listToPrint.iterator();
+			Iterator<IntegerWrapper> itr = listToPrint.iterator();
 			System.out.print("Lista: ");
 			while (itr.hasNext()) 
 			{
 				IntegerWrapper tmpWrapper = (IntegerWrapper) itr.next();
 				
-				System.out.print(tmpWrapper.GetValue() + ", ");
+				//System.out.print(tmpWrapper.GetValue() + ", ");
+				output += tmpWrapper.GetValue() + ", ";
 			}	
-			
-			System.out.println();
+						
+			System.out.println(output);
+			//System.out.println();
 		}
 		else
 			throw new Exception("List passed as argument is null or empty");
 
+		return output;
 	}
 
 }

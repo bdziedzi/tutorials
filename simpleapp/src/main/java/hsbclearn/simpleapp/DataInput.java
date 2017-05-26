@@ -6,7 +6,7 @@ import java.util.List;
 public class DataInput implements IDataInput
 {
 
-	private List <IIntegerWrapper> dataList;
+	private List <IntegerWrapper> dataList;
 	
 	//  constructor with no arguments will be enable when Insert method implemented
 	//DataInput()
@@ -14,23 +14,23 @@ public class DataInput implements IDataInput
 		//dataList = new ArrayList <IIntegerWrapper> ();
 	//}
 	
-	DataInput(List <IIntegerWrapper> injIWList)
+	DataInput(List <IntegerWrapper> injIWList)
 	{
 		if (injIWList != null)
 			dataList = injIWList;
 		else
-			dataList = new ArrayList <IIntegerWrapper> ();
+			dataList = new ArrayList <IntegerWrapper> ();
 	}
 	
 	DataInput(int[] injIntList)
 	{
-		dataList = new ArrayList <IIntegerWrapper> ();
+		dataList = new ArrayList <IntegerWrapper> ();
 		
 		if (injIntList != null)
 		{			
 			for (int index = 0; index < injIntList.length; index++)
 			{				
-				IIntegerWrapper tmpIW = new IntegerWrapper(injIntList[index]);
+				IntegerWrapper tmpIW = new IntegerWrapper(injIntList[index]);
 				dataList.add(tmpIW);
 			}
 		}
@@ -49,7 +49,7 @@ public class DataInput implements IDataInput
 		System.out.println();		
 	} */
 	
-	public List <IIntegerWrapper> GetData()
+	public List<IntegerWrapper> GetData()
 	{
 		return dataList;		
 	}

@@ -1,5 +1,6 @@
-package hsbclearn.simpleapp;
+package hsbclearn.simpleapp.xmlparsers;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -15,14 +16,17 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
 
-public class XMLDomParser implements IXMLMessageParser {
+import hsbclearn.simpleapp.IntegerWrapper;
+
+public class XMLJaxpParser implements IXMLMessageParser {
 
 	@Override
-	public String saveAsXML(List<IIntegerWrapper> injIWlist) {
+	public String saveAsXML(List<IntegerWrapper> injIWlist) {
 
 		String output = null;
 		try 
@@ -35,7 +39,7 @@ public class XMLDomParser implements IXMLMessageParser {
 			doc.appendChild(rootElement);
 			
 			int idx = 0;
-			for (IIntegerWrapper element : injIWlist) 
+			for (IntegerWrapper element : injIWlist) 
 			{
 				Element iwElement = doc.createElement("IntegerWrapper");
 		        rootElement.appendChild(iwElement);
@@ -60,47 +64,51 @@ public class XMLDomParser implements IXMLMessageParser {
 	        e.printStackTrace();
 	    }
 		         
-		return output;
+		return output;		
+
 	}
 
 	@Override
-	public List<IIntegerWrapper> readXML(String inXML) {
-	
-	
-		List<IIntegerWrapper> retIWList = new ArrayList <IIntegerWrapper> ();
+	public List<IntegerWrapper> readXML(String inXML) 
+	{		
+		 //Create a empty link of users initially
+        List<IntegerWrapper> iwList = new ArrayList<IntegerWrapper>();
+        
+        try
+        {
+            //Create default handler instance
+            userParserHandler handler = new userParserHandler();
+ 
+            //Create parser from factory
+            XMLReader parser = XMLReaderFactory.createXMLReader();
+ 
+            //Register handler with parser
+            parser.setContentHandler(handler);
+ 
+            //Create an input source from the XML input stream
+            
+            InputSource sourcexml = new InputSource(new StringReader(inXML));            
+ 
+            //parse the document
+            parser.parse(sourcexml);
+ 
+            //populate the parsed users list in above created empty list; You can return from here also.
+            iwList = handler.GetList(); 
+        } 
+        catch (SAXException e) 
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
+        catch (IOException e) 
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
+        
+        return iwList;		
 		
-		
-		try 
-		{
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			InputSource isxml = new InputSource(new StringReader(inXML));
-			Document doc = dBuilder.parse(isxml);
-			
-			doc.getDocumentElement().normalize();
-			
-			NodeList nList = doc.getElementsByTagName("IntegerWrapper");
-			
-			 for (int temp = 0; temp < nList.getLength(); temp++) 
-			 {
-		            Node nNode = nList.item(temp);
-		            
-		            if (nNode.getNodeType() == Node.ELEMENT_NODE) 
-	            	{
-		                Element eElement = (Element) nNode;
-		                
-		                IntegerWrapper tmpIW = new IntegerWrapper(Integer.parseInt( eElement.getElementsByTagName("value").item(0).getTextContent()));
-		                retIWList.add(tmpIW);
-	            	}
-		            
-			 }
-		}
-		catch (Exception e)
-		{
-	        e.printStackTrace();
-	    }
-	      
-			return retIWList;
 	}
+	    
 
 }

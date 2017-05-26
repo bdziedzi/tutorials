@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface IDataOutput 
 {
-	void PrintList (List<IIntegerWrapper> listToPrint) throws Exception;
+	String listout (List<IntegerWrapper> listToPrint) throws Exception;
 }
