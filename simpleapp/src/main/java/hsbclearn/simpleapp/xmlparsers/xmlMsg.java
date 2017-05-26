@@ -20,7 +20,6 @@ public class xmlMsg
 	@XmlElement(name="IntegerWrapper")
 	private List <IntegerWrapper> dataList;
 
-
 	public List <IntegerWrapper> GetList()
 	{
 		if (this.dataList == null) 
@@ -34,13 +33,12 @@ public class xmlMsg
 			this.dataList = injList;
 	}
 	
-	public static class ParentAdapter extends XmlAdapter<Object,Object>{
+	/*public static class ParentAdapter extends XmlAdapter<Object,Object>{
         @Override
         public Object marshal( Object arg0 ) throws Exception{ return arg0; }
 
         @Override
         public Object unmarshal( Object arg0 ) throws Exception{ return arg0; }
-    }
-
+    }*/
 
 }

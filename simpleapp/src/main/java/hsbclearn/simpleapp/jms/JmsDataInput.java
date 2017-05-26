@@ -13,6 +13,7 @@ import javax.jms.TextMessage;
 import hsbclearn.simpleapp.IDataInput;
 import hsbclearn.simpleapp.IntegerWrapper;
 import hsbclearn.simpleapp.resources.JMSResources;
+import hsbclearn.simpleapp.xmlparsers.XMLJaxbParser;
 import hsbclearn.simpleapp.xmlparsers.XMLJaxpParser;
 
 public class JmsDataInput implements IDataInput {
@@ -36,7 +37,7 @@ public class JmsDataInput implements IDataInput {
 		
 		Connection conn;
 		
-		XMLJaxpParser xmljaxp = new XMLJaxpParser();
+		XMLJaxbParser xmljaxb = new XMLJaxbParser();
 		
 		try {
 			 
@@ -52,7 +53,7 @@ public class JmsDataInput implements IDataInput {
 				msg = (TextMessage) consumer.receive();
 				System.out.println(msg.getText() + " timestamp=" + msg.getJMSTimestamp());
 				
-				output = xmljaxp.readXML(msg.getText());
+				output = xmljaxb.readXML(msg.getText());
 
 			//} while (now + 1000 * 60 * 10 > System.currentTimeMillis());
 			 

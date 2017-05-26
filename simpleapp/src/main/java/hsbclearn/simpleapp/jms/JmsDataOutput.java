@@ -14,6 +14,7 @@ import javax.jms.TextMessage;
 import hsbclearn.simpleapp.IDataOutput;
 import hsbclearn.simpleapp.IntegerWrapper;
 import hsbclearn.simpleapp.resources.JMSResources;
+import hsbclearn.simpleapp.xmlparsers.XMLJaxbParser;
 import hsbclearn.simpleapp.xmlparsers.XMLJaxpParser;
 
 public class JmsDataOutput implements IDataOutput 
@@ -33,7 +34,7 @@ public class JmsDataOutput implements IDataOutput
 		Session session = null;
 	    MessageProducer producer = null;
 	    
-	    XMLJaxpParser xmljaxp = new XMLJaxpParser();
+	    XMLJaxbParser xmljaxb = new XMLJaxbParser();
 	    
 		try {
 			Connection conn = connFactory.createConnection();
@@ -44,7 +45,7 @@ public class JmsDataOutput implements IDataOutput
 		    
 	        TextMessage message = session.createTextMessage();
 			
-	        message.setText(xmljaxp.saveAsXML(listToPrint));
+	        message.setText(xmljaxb.saveAsXML(listToPrint));
 	        
 	        producer.send(message,
 	                      Message.DEFAULT_DELIVERY_MODE,

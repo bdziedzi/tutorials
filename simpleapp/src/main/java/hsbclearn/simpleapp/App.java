@@ -21,7 +21,7 @@ public class App
         
         String inputXML = "<?xml version=\"1.0\" ?><IntegerWrapperElements><IntegerWrapper><value>100</value></IntegerWrapper><IntegerWrapper><value>-30</value></IntegerWrapper><IntegerWrapper><value>99</value></IntegerWrapper><IntegerWrapper><value>68</value></IntegerWrapper></IntegerWrapperElements>";
         
-        String inputXML2 = "<?xml version=\"1.0\" ?><IntegerWrapperElements><Lista><IntegerWrapper><value>100</value></IntegerWrapper><IntegerWrapper><value>-30</value></IntegerWrapper><IntegerWrapper><value>99</value></IntegerWrapper><IntegerWrapper><value>68</value></IntegerWrapper></Lista></IntegerWrapperElements>";
+        String inputXML2 = "<?xml version=\"1.0\" ?><IntegerWrapperElements><Lista><IntegerWrapper><value>1</value></IntegerWrapper><IntegerWrapper><value>2</value></IntegerWrapper><IntegerWrapper><value>3</value></IntegerWrapper><IntegerWrapper><value>4</value></IntegerWrapper></Lista></IntegerWrapperElements>";
         
         XMLDomParser xmldom = new XMLDomParser();
         
@@ -37,23 +37,23 @@ public class App
         {
         	output = dto.listout(dtp.Execute(dti.GetData()));	
 			
-			System.out.println(xmldom.saveAsXML(dti.GetData())); 			
-			
+        	System.out.println("<<< DOM: >>>");
+			System.out.println(xmldom.saveAsXML(dti.GetData()));
 			output = dto.listout(dtp.Execute(xmldom.readXML(inputXML)));	
 			
-			System.out.println(xmlstax.saveAsXML(dti.GetData())); 	
-			
+			System.out.println("<<< STAX: >>>");
+			System.out.println(xmlstax.saveAsXML(dti.GetData()));
 			output = dto.listout(dtp.Execute(xmlstax.readXML(inputXML)));
 			
+			System.out.println("<<< JAXP: >>>");
 			System.out.println(xmljaxp.saveAsXML(dti.GetData())); 	
-						
 			output = dto.listout(dtp.Execute(xmljaxp.readXML(inputXML)));
 			
-			xmljaxb.readXML(inputXML2);	
+			System.out.println("<<< JAXB 111: >>>");
+			System.out.println(xmljaxb.saveAsXML(dti.GetData()));	
 			
-			
-			//jmsdto.SendMsg("ALA MA PSA!");
-			
+			System.out.println("<<< JAXB 222: >>>");
+			output = dto.listout(dtp.Execute(xmljaxb.readXML(inputXML2)));
 			
 		} 
         catch (Exception e) 
