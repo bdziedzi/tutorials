@@ -10,7 +10,7 @@ public class DataProcessor implements IDataProcessor
 {
 	private int sortMode;
 	
-	DataProcessor()
+	public DataProcessor()
 	{
 		sortMode = 1;
 	}
