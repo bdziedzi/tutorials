@@ -19,7 +19,7 @@ import hsbclearn.simpleapp.xmlparsers.ParserType;
 @Dependent
 public class ParserBean01 implements IParserBean {
 
-	@Inject //@DomReady
+	@Inject
 	@ParserType(ParserName.XMLDomParser)
 	@ParserProducer
 	IXMLMessageParser msgparser;
