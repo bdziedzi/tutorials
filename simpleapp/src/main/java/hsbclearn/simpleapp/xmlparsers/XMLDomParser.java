@@ -27,6 +27,8 @@ public class XMLDomParser implements IXMLMessageParser {
 	public String saveAsXML(List<IntegerWrapper> injIWlist) {
 
 		String output = null;
+		
+		System.out.println("XMLDomParser::saveAsXML()");
 		try 
 		{
 			DocumentBuilderFactory dbFactory =  DocumentBuilderFactory.newInstance();
@@ -71,6 +73,7 @@ public class XMLDomParser implements IXMLMessageParser {
 	
 		List<IntegerWrapper> retIWList = new ArrayList <IntegerWrapper> ();
 		
+		System.out.println("XMLDomParser::readXML()");
 		
 		try 
 		{

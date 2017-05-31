@@ -11,12 +11,17 @@ import hsbclearn.simpleapp.DataProcessor;
 import hsbclearn.simpleapp.IntegerWrapper;
 import hsbclearn.simpleapp.xmlparsers.DomReady;
 import hsbclearn.simpleapp.xmlparsers.IXMLMessageParser;
+import hsbclearn.simpleapp.xmlparsers.ParserName;
+import hsbclearn.simpleapp.xmlparsers.ParserProducer;
+import hsbclearn.simpleapp.xmlparsers.ParserType;
 
 @Dom
 @Dependent
 public class ParserBean01 implements IParserBean {
 
-	@Inject @DomReady
+	@Inject //@DomReady
+	@ParserType(ParserName.XMLDomParser)
+	@ParserProducer
 	IXMLMessageParser msgparser;
 
 	@Override

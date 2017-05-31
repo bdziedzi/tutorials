@@ -23,6 +23,8 @@ public class XMLJaxbParser implements IXMLMessageParser {
 		StringWriter sw = new StringWriter();
 		xmlMsg msgtmp = new xmlMsg();
 		
+		System.out.println("XMLJaxbParser::saveAsXML()");
+		
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(xmlMsg.class);
 			
@@ -44,6 +46,8 @@ public class XMLJaxbParser implements IXMLMessageParser {
 	public List<IntegerWrapper> readXML(String inXML) {
 
 		xmlMsg iwtmp = null;
+		
+		System.out.println("XMLJaxbParser::readXML()");
 		
 		try
 		{

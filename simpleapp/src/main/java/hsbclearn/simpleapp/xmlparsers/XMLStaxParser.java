@@ -25,6 +25,8 @@ public class XMLStaxParser implements IXMLMessageParser {
 
 		String outputXMLString = null;
 		 
+		System.out.println("XMLStaxParser::saveAsXML()");
+		
 		try 
 		{
 			StringWriter stringWriter = new StringWriter();
@@ -71,6 +73,8 @@ public class XMLStaxParser implements IXMLMessageParser {
 		List<IntegerWrapper> retIWList = new ArrayList <IntegerWrapper> ();
 		
 		boolean isvalue = false;
+		
+		System.out.println("XMLStaxParser::readXML()");
 		
 		try 
 		{

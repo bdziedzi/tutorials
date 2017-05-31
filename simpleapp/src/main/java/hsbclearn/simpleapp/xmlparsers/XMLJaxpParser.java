@@ -29,6 +29,9 @@ public class XMLJaxpParser implements IXMLMessageParser {
 	public String saveAsXML(List<IntegerWrapper> injIWlist) {
 
 		String output = null;
+		
+		System.out.println("XMLJaxpParser::saveAsXML()");
+		
 		try 
 		{
 			DocumentBuilderFactory dbFactory =  DocumentBuilderFactory.newInstance();
@@ -73,6 +76,8 @@ public class XMLJaxpParser implements IXMLMessageParser {
 	{		
 		 //Create a empty link of users initially
         List<IntegerWrapper> iwList = new ArrayList<IntegerWrapper>();
+        
+        System.out.println("XMLJaxpParser::readXML()");
         
         try
         {
