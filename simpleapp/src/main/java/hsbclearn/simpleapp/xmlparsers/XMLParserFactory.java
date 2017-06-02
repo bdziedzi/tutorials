@@ -12,7 +12,7 @@ public class XMLParserFactory {
 
 	@Produces
 	@ParserProducer
-	public IXMLMessageParser createParser(@Any Instance<IXMLMessageParser> instance, 
+	public IXMLMessageParser createParser(/*@Any Instance<IXMLMessageParser> instance, */
 										  InjectionPoint injectionPoint)
 	{
 		Annotated annotated = injectionPoint.getAnnotated();

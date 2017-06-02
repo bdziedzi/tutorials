@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.enterprise.context.Dependent;
+
+@Dependent
 public class DataProcessor implements IDataProcessor 
 {
 	private int sortMode;

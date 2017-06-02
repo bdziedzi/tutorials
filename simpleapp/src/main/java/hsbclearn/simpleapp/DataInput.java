@@ -3,18 +3,20 @@ package hsbclearn.simpleapp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.Dependent;
+
+@Dependent
 public class DataInput implements IDataInput
 {
-
 	private List <IntegerWrapper> dataList;
 	
-	//  constructor with no arguments will be enable when Insert method implemented
-	//DataInput()
-	//{
-		//dataList = new ArrayList <IIntegerWrapper> ();
-	//}
+	public DataInput()
+	{		
+		dataList = new ArrayList <IntegerWrapper> ();
+		System.out.println("DataInput()");
+	}
 	
-	DataInput(List <IntegerWrapper> injIWList)
+	public DataInput(List <IntegerWrapper> injIWList)
 	{
 		if (injIWList != null)
 			dataList = injIWList;
@@ -22,43 +24,31 @@ public class DataInput implements IDataInput
 			dataList = new ArrayList <IntegerWrapper> ();
 	}
 	
-	DataInput(int[] injIntList)
+	public DataInput(int[] injIntList)
 	{
 		dataList = new ArrayList <IntegerWrapper> ();
 		
+		InsertInput(injIntList);
+	}
+	
+	public void InsertInput (int[] injIntList)
+	{
 		if (injIntList != null)
-		{			
+		{		
 			for (int index = 0; index < injIntList.length; index++)
 			{				
 				IntegerWrapper tmpIW = new IntegerWrapper(injIntList[index]);
-				dataList.add(tmpIW);
-			}
-		}
-	}	
-	
-	/*
-	public void PrintData() 
-	{
-		Iterator<IIntegerWrapper> itr = dataList.iterator();
-		while (itr.hasNext()) 
-		{
-			IIntegerWrapper tmpWrapper = (IIntegerWrapper) itr.next();
-			int val = tmpWrapper.GetValue();
-			System.out.print(val + " ");
-		}
-		System.out.println();		
-	} */
+				this.dataList.add(tmpIW);
+			}			
+		}		
+		System.out.println("count: "+ this.dataList.size());
+	}
+
 	
 	public List<IntegerWrapper> GetData()
 	{
 		return dataList;		
 	}
 
-	/*
-	public int CountData() 
-	{		
-		return dataList.size();
-	}
-	*/
 	
 }

@@ -2,6 +2,8 @@ package hsbclearn.simpleapp.jms;
 
 import java.util.List;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
@@ -15,29 +17,27 @@ import hsbclearn.simpleapp.IDataOutput;
 import hsbclearn.simpleapp.IntegerWrapper;
 import hsbclearn.simpleapp.resources.JMSResources;
 import hsbclearn.simpleapp.xmlparsers.XMLJaxbParser;
-import hsbclearn.simpleapp.xmlparsers.XMLJaxpParser;
 
+@Dependent
 public class JmsDataOutput implements IDataOutput 
 {
-
+	@Inject
+	ConnectionFactory connFactory;
+	
+	@Inject
+	Queue msgqueue;
+	
 	@Override
 	public String listout(List<IntegerWrapper> listToPrint) throws Exception {
 
-		ConnectionFactory connFactory;
-		Queue msgqueue;
-		JMSResources jmsr = new JMSResources();
-		
-		jmsr.init();		
-		connFactory = jmsr.getConnFactory();
-		msgqueue = jmsr.getDefaultQueue();
-		
 		Session session = null;
 	    MessageProducer producer = null;
+	    Connection conn = null;
 	    
 	    XMLJaxbParser xmljaxb = new XMLJaxbParser();
 	    
 		try {
-			Connection conn = connFactory.createConnection();
+			conn = connFactory.createConnection();
 			
 		    session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			
@@ -52,13 +52,15 @@ public class JmsDataOutput implements IDataOutput
 	                      Message.DEFAULT_PRIORITY,
 	                      Message.DEFAULT_TIME_TO_LIVE);
 	        
-	        session.close();
-			conn.close();
-			producer.close();			
+	       			
 		    
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			session.close();
+			conn.close();
+			producer.close();
 		}
 		return null;
 

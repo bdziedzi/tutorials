@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hsbclearn.simpleapp.cdi.GUIContoller;
+import hsbclearn.simpleapp.cdiex.XMLController;
 
 /**
  * Servlet implementation class ExampleServletCdi
@@ -18,8 +18,11 @@ import hsbclearn.simpleapp.cdi.GUIContoller;
 public class ExampleServletCdi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	@Inject
-	GUIContoller executor;
+	//@Inject
+	//GUIContoller executor;
+	
+	@Inject 
+	XMLController xmlctrl;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,7 +37,8 @@ public class ExampleServletCdi extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		executor.execute();
+		//executor.execute();
+		xmlctrl.execute();
 		response.getWriter().append("Served at: GUIContoller!!").append(request.getContextPath());
 	}
 

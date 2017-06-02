@@ -3,11 +3,16 @@ package hsbclearn.simpleapp.jms;
 import java.util.List;
 
 import hsbclearn.simpleapp.IDataProcessor;
-import hsbclearn.simpleapp.IIntegerWrapper;
 import hsbclearn.simpleapp.IntegerWrapper;
+
 
 public class JmsDataProcessor implements IDataProcessor 
 {
+	public JmsDataProcessor()
+	{
+		
+	}
+	
 	@Override
 	public List<IntegerWrapper> Execute(List<IntegerWrapper> inputIWList) {
 

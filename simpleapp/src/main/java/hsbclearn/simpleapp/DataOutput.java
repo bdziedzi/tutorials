@@ -3,6 +3,9 @@ package hsbclearn.simpleapp;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.enterprise.context.Dependent;
+
+@Dependent
 public class DataOutput implements IDataOutput 
 {
 
