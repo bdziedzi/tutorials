@@ -39,7 +39,7 @@ public class ExampleServlet2 extends HttpServlet {
 		
 		listFromQueue = jmsdi.GetData();
 		
-		response.getWriter().append("Served at: ExampleServlet(22)").append(request.getContextPath());
+		response.getWriter().append("Served at: XX-222").append(request.getContextPath());
 	}
 
 	/**

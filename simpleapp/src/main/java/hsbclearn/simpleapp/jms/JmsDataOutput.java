@@ -37,6 +37,11 @@ public class JmsDataOutput implements IDataOutput
 	    XMLJaxbParser xmljaxb = new XMLJaxbParser();
 	    System.out.println("1checkpoint");
 	    
+    	//JMSResources jmsrsc = new JMSResources();		
+		//jmsrsc.init();		
+		//connFactory = jmsrsc.getConnFactory();
+		//msgqueue = jmsrsc.getDefaultQueue();
+		
 		try {
 			conn = connFactory.createConnection();
 			

@@ -33,11 +33,15 @@ public class JmsDataInput implements IDataInput {
 		List<IntegerWrapper> output = null;		
 		TextMessage msg = null;
 		Session session = null;		
-		MessageConsumer consumer = null;
-		
+		MessageConsumer consumer = null;		
 		Connection conn = null;
 		
 		XMLJaxbParser xmljaxb = new XMLJaxbParser();
+		
+		//JMSResources jmsrsc =  new JMSResources();		
+		//jmsrsc.init();		
+		//connFactory = jmsrsc.getConnFactory();
+		//msgqueue = jmsrsc.getDefaultQueue();
 		
 		System.out.println("checkpoint1");
 		try {
