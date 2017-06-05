@@ -6,10 +6,23 @@ import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.Annotated;
 import javax.enterprise.inject.spi.InjectionPoint;
+import javax.inject.Inject;
 
 @ApplicationScoped
 public class XMLParserFactory {
 
+	@Inject 
+	XMLDomParser xmldom;
+	
+	@Inject 
+	XMLJaxpParser xmljaxp;
+	
+	@Inject 
+	XMLJaxbParser xmljaxb;
+	
+	@Inject 
+	XMLJaxbParser xmlstax;
+	
 	@Produces
 	@ParserProducer
 	public IXMLMessageParser createParser(/*@Any Instance<IXMLMessageParser> instance, */
@@ -22,16 +35,18 @@ public class XMLParserFactory {
         //return instance.select(tmpParserType).get();
         
         if (tmpParserType == XMLDomParser.class) {            
-            return new XMLDomParser();
+            return xmldom;
         } else if (tmpParserType == XMLJaxpParser.class) {           
-            return new XMLJaxpParser();
+            return xmljaxp;
         } else if (tmpParserType == XMLJaxbParser.class) {
-        	return new XMLJaxbParser();
+            return xmljaxb;
         } else if (tmpParserType == XMLStaxParser.class) {
-        	return new XMLStaxParser();
+            return xmlstax;
         }
-        else{
-        	return null;
+        else {
+            return null;
         }
+
+
 	}
 }
