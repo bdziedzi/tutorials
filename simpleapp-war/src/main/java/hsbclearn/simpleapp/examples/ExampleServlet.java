@@ -14,7 +14,6 @@ import hsbclearn.simpleapp.IntegerWrapper;
 import hsbclearn.simpleapp.jms.JmsDataOutput;
 import hsbclearn.simpleapp.jms.JmsDataProcessor;
 import hsbclearn.simpleapp.xmlparsers.XMLJaxbParser;
-import hsbclearn.simpleapp.xmlparsers.XMLJaxpParser;
 
 @WebServlet("/ExampleServlet")
 public class ExampleServlet extends HttpServlet {
@@ -48,7 +47,7 @@ public class ExampleServlet extends HttpServlet {
 		//jmsdo.listout(listToPrint);
 		
 		response.getWriter()
-			.append("Served at: bum szakalaka (XX-111)")
+			.append("Served at: bum szakalaka (XX-111-YY)")
 			.append(request.getContextPath());
 	}
 

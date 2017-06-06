@@ -21,7 +21,7 @@
 			<groupId>hsbclearn</groupId>
 			<artifactId>simpleapp</artifactId>
 			<version>0.1</version>
-			<type>jar</type>
+			<type>jar</type>						
 		</dependency>	
 	</dependencies>	
 	

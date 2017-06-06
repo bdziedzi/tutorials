@@ -5,8 +5,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 
 @ApplicationScoped
 public class JMSResources {
@@ -16,30 +14,17 @@ public class JMSResources {
 	private ConnectionFactory connFactory;
 	
 	@Produces
-	@Resource(lookup="jms/SimpleAppDefaultQueue")
+	@Resource(lookup="jms/simpleAppDefaultQueue")
 	private Queue defaultQueue;
-	/*
-	private ConnectionFactory connFactory;
-	private Queue defaultQueue;
-
-	public void init() {
-		try {
-			Context ctx = new InitialContext();
-			connFactory = (ConnectionFactory) ctx.lookup("jms/simpleAppConnectionFactory");
-			String admDestName = "jms/SimpleAppDefaultQueue";
-			defaultQueue = (Queue) ctx.lookup(admDestName);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public ConnectionFactory getConnFactory() {
-		return connFactory;
-	}
-
-	public Queue getDefaultQueue() {
-		return defaultQueue;
-	}	
-	*/
+	
+	@Produces
+	@Request
+	@Resource(lookup="jms/simpleAppRequestQueue")	
+	private Queue requestQueue;
+	
+	@Produces
+	@Response
+	@Resource(lookup="jms/simpleAppRequestQueue")	
+	private Queue responseQueue;
 
 }

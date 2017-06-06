@@ -1,33 +1,38 @@
 package hsbclearn.simpleapp.examples;
 
 import java.io.IOException;
-import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.jms.Queue;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hsbclearn.simpleapp.IntegerWrapper;
-import hsbclearn.simpleapp.jms.JmsDataInput;
 import hsbclearn.simpleapp.jms.JmsDataOutput;
+import hsbclearn.simpleapp.resources.JMSResources;
+import hsbclearn.simpleapp.resources.Request;
+import hsbclearn.simpleapp.resources.Response;
 
 /**
- * Servlet implementation class ExampleServlet2
+ * Servlet implementation class ExampleServletMdb
  */
-@WebServlet("/ExampleServlet2")
-public class ExampleServlet2 extends HttpServlet {
+@WebServlet("/ExampleServletMdb")
+public class ExampleServletMdb extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
-	@Inject
-	JmsDataInput jmsdi;
+	@Inject @Response
+	private Queue responseQueue;
+	
+	@Inject @Request
+	private Queue requestQueue;
 	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ExampleServlet2() {
+    public ExampleServletMdb() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,14 +41,10 @@ public class ExampleServlet2 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//JmsDataInput jmsdi = new JmsDataInput();
+
+		jmsrsc.
 		
-		List<IntegerWrapper> listFromQueue = null;
-		
-		listFromQueue = jmsdi.GetData();
-		
-		response.getWriter().append("Served at: XX-222").append(request.getContextPath());
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

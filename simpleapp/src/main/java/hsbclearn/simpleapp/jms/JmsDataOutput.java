@@ -35,44 +35,27 @@ public class JmsDataOutput implements IDataOutput
 	    Connection conn = null;
 	    
 	    XMLJaxbParser xmljaxb = new XMLJaxbParser();
-	    System.out.println("1checkpoint");
-	    
-    	//JMSResources jmsrsc = new JMSResources();		
-		//jmsrsc.init();		
-		//connFactory = jmsrsc.getConnFactory();
-		//msgqueue = jmsrsc.getDefaultQueue();
 		
 		try {
 			conn = connFactory.createConnection();
-			
-			System.out.println("2checkpoint");
-			
-		    session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
+						
+		    //session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		    
-		    System.out.println("3checkpoint");
-			//session = conn.createSession(true, Session.SESSION_TRANSACTED);
+		    session = conn.createSession(true, Session.SESSION_TRANSACTED);
 			
 		    producer = session.createProducer(msgqueue);
 		    
-		    System.out.println("4checkpoint");
-		    
 	        TextMessage message = session.createTextMessage();
-	        
-	        System.out.println("5checkpoint");
 			
 	        message.setText(xmljaxb.saveAsXML(listToPrint));
-	        
-	        System.out.println("6checkpoint");
 	        
 	        producer.send(message,
 	                      Message.DEFAULT_DELIVERY_MODE,
 	                      Message.DEFAULT_PRIORITY,
 	                      Message.DEFAULT_TIME_TO_LIVE);
-	        
-	        System.out.println("7checkpoint");
-	        //session.commit();
-	        
-	       			
+	        	        
+	        session.commit();
+	        	       			
 		    
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block

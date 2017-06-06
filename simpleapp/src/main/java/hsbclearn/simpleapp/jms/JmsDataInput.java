@@ -36,40 +36,26 @@ public class JmsDataInput implements IDataInput {
 		MessageConsumer consumer = null;		
 		Connection conn = null;
 		
-		XMLJaxbParser xmljaxb = new XMLJaxbParser();
+		XMLJaxbParser xmljaxb = new XMLJaxbParser();		
 		
-		//JMSResources jmsrsc =  new JMSResources();		
-		//jmsrsc.init();		
-		//connFactory = jmsrsc.getConnFactory();
-		//msgqueue = jmsrsc.getDefaultQueue();
-		
-		System.out.println("checkpoint1");
 		try {
 			 
 			conn = connFactory.createConnection();
-			System.out.println("checkpoint2");
-			session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			//session = conn.createSession(true, Session.SESSION_TRANSACTED);
-			System.out.println("checkpoint3");
+			
+			//session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
+			session = conn.createSession(true, Session.SESSION_TRANSACTED);
+
 			consumer = session.createConsumer(msgqueue);
 			
-			System.out.println("checkpoint4");
 			conn.start();
-			
-			System.out.println("checkpoint5");
-			
-			
+
 			msg = (TextMessage) consumer.receive();
-			
-			System.out.println("checkpoint6");
 			
 			System.out.println(msg.getText() + " timestamp=" + msg.getJMSTimestamp());
 				
 			output = xmljaxb.readXML(msg.getText());
 			
-			//session.commit();
-			
-			session.close();
+			session.commit();
 			
 			session.close();
 			conn.close();
