@@ -24,7 +24,7 @@ public class JMSResources {
 	
 	@Produces
 	@Response
-	@Resource(lookup="jms/simpleAppRequestQueue")	
+	@Resource(lookup="jms/simpleAppResponseQueue")	
 	private Queue responseQueue;
 
 }
