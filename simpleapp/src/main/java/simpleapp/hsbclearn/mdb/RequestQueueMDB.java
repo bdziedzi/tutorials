@@ -45,16 +45,21 @@ public class RequestQueueMDB implements MessageListener {
     TextMessage msg = null;
     
     try {
-    	System.out.println("Got message: --------------------- " + textMsg.getText());
+    	System.out.println("MDB on Request queue got msg: " + textMsg.getText());
       
       	Context ctx = new InitialContext();			
-	  	Queue responseQueue = (Queue) ctx.lookup("jms/simpleAppResponseQueue");
+	  	//Queue responseQueue = (Queue) ctx.lookup("jms/simpleAppResponseQueue");
+      	Queue responseQueue = (Queue) message.getJMSReplyTo();
 	  
 	  	conn = connFactory.createConnection();
 		
 		session = conn.createSession(true, Session.SESSION_TRANSACTED);
-				
+
 		producer = session.createProducer(responseQueue);
+		
+		String msgid = message.getJMSMessageID();
+		
+		textMsg.setJMSCorrelationID(msgid);
 		
 		producer.send(textMsg,
                     Message.DEFAULT_DELIVERY_MODE,

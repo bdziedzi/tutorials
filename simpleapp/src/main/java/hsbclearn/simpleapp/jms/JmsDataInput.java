@@ -15,6 +15,7 @@ import javax.jms.TextMessage;
 import hsbclearn.simpleapp.IDataInput;
 import hsbclearn.simpleapp.IntegerWrapper;
 import hsbclearn.simpleapp.resources.JMSResources;
+import hsbclearn.simpleapp.resources.Response;
 import hsbclearn.simpleapp.xmlparsers.XMLJaxbParser;
 import hsbclearn.simpleapp.xmlparsers.XMLJaxpParser;
 
@@ -24,8 +25,21 @@ public class JmsDataInput implements IDataInput {
 	@Inject
 	ConnectionFactory connFactory;
 	
-	@Inject
-	Queue msgqueue;
+	@Inject @Response
+	Queue resqueue;
+	
+	private String correlation = null;
+	
+	private String getCorrelation()
+	{		
+		
+		return "JMSCorrelationID='" + this.correlation + "'";
+	}
+	
+	public void setCorrelation (String newCorellation)
+	{
+		this.correlation = newCorellation;
+	}
 	
 	@Override
 	public List<IntegerWrapper> GetData() {
@@ -39,28 +53,38 @@ public class JmsDataInput implements IDataInput {
 		XMLJaxbParser xmljaxb = new XMLJaxbParser();		
 		
 		try {
-			 
-			conn = connFactory.createConnection();
+			System.out.println("JMSDataInput checkpoint (1)");
 			
-			//session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
+			conn = connFactory.createConnection();			
+			
+			System.out.println("JMSDataInput checkpoint (2)");
+			
 			session = conn.createSession(true, Session.SESSION_TRANSACTED);
 
-			consumer = session.createConsumer(msgqueue);
+			System.out.println("JMSDataInput checkpoint (3)");
+			
+			consumer = session.createConsumer(resqueue, getCorrelation());
+			
+			System.out.println("JMSDataInput checkpoint (4)");
 			
 			conn.start();
 
+			System.out.println("JMSDataInput checkpoint (5)");
+			
 			msg = (TextMessage) consumer.receive();
 			
+			System.out.println("JMSDataInput checkpoint (6)");
+			
 			System.out.println(msg.getText() + " timestamp=" + msg.getJMSTimestamp());
-				
+			
+			System.out.println("JMSDataInput checkpoint (7)");
+			
 			output = xmljaxb.readXML(msg.getText());
 			
 			session.commit();
 			
 			session.close();
-			conn.close();
-			consumer.close();	
-			
+			conn.close();			
 						
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
