@@ -2,6 +2,7 @@ package hsbclearn.simpleapp.jms;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.jms.Connection;
@@ -28,18 +29,9 @@ public class JmsDataInput implements IDataInput {
 	@Inject @Response
 	Queue resqueue;
 	
-	private String correlation = null;
-	
-	private String getCorrelation()
-	{		
-		
-		return "JMSCorrelationID='" + this.correlation + "'";
-	}
-	
-	public void setCorrelation (String newCorellation)
-	{
-		this.correlation = newCorellation;
-	}
+	//@EJB
+	@Inject
+	JmsBuffer buffer;
 	
 	@Override
 	public List<IntegerWrapper> GetData() {
@@ -63,7 +55,16 @@ public class JmsDataInput implements IDataInput {
 
 			System.out.println("JMSDataInput checkpoint (3)");
 			
-			consumer = session.createConsumer(resqueue, getCorrelation());
+			if (buffer.getCorrelation() != null)
+			{
+				consumer = session.createConsumer(resqueue, buffer.getCorrelation());
+				System.out.println("JMSDataInput checkpoint (3aaa)");
+			}
+			else
+			{
+				consumer = session.createConsumer(resqueue);
+				System.out.println("JMSDataInput checkpoint (3bbb)");
+			}
 			
 			System.out.println("JMSDataInput checkpoint (4)");
 			

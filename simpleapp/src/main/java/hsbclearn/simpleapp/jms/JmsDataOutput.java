@@ -2,6 +2,7 @@ package hsbclearn.simpleapp.jms;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.jms.Connection;
@@ -41,7 +42,31 @@ public class JmsDataOutput implements IDataOutput
 	@ParserProducer
 	IXMLMessageParser msgparser;
 	
-	String msgId = null;
+	@EJB
+	JmsBuffer buffer;	
+	
+	private String msgId = null;
+	
+	private String msgGroupId;
+	private String msgMarker;
+	
+	public void setMsgGroupId(String inMsgId)
+	{
+		this.msgGroupId = inMsgId;
+	}
+	
+	public void setMsgSequence(String inMsgMark)
+	{
+		this.msgMarker = inMsgMark;
+	}
+	
+	public String listout(List<IntegerWrapper> listToPrint, String inMsgId, String inMsgMark) throws Exception {
+		
+		this.msgGroupId = inMsgId;
+		this.msgMarker = inMsgMark;
+		
+		return listout(listToPrint);
+	}
 	
 	@Override
 	public String listout(List<IntegerWrapper> listToPrint) throws Exception {
@@ -72,15 +97,27 @@ public class JmsDataOutput implements IDataOutput
 	        
 	        message.setJMSReplyTo(resqueue);	        
 	        
+	        message.setStringProperty("JMSXGroupID", this.msgGroupId);
+	        message.setStringProperty("MessageMarker", this.msgMarker);
+	        
 	        producer.send(message,
 	                      Message.DEFAULT_DELIVERY_MODE,
 	                      Message.DEFAULT_PRIORITY,
 	                      Message.DEFAULT_TIME_TO_LIVE);
-	        	        
+	        	   
+	        System.out.println("JMSDataInput checkpoint -= 1 =-");
+	        
 	        session.commit();
 	        
+	        System.out.println("JMSDataInput checkpoint -= 2 =-");
+	        
 	        this.msgId = message.getJMSMessageID();
-	        	       			
+	        
+	        System.out.println("JMSDataInput checkpoint -= 3 =-");
+	        
+	        buffer.setCorrelation(this.msgId);
+	        
+	        System.out.println("JMSDataInput checkpoint -= 4 =-");
 		    
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block

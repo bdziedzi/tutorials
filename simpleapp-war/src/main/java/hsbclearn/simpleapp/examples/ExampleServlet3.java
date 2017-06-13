@@ -55,13 +55,21 @@ public class ExampleServlet3 extends HttpServlet {
 		
 		try {
 			System.out.println(">>> przed processorem i wysłaniem do Request");
-			jmsdo.listout(jmsdtp.Execute(dti.GetData()));
+			//jmsdo.listout(jmsdtp.Execute(dti.GetData()),"GROUP1","marker");
+			
+			//System.out.println(">>> po wysłaniu do Request. msgid = " + jmsdo.getMessageId());		
+			
+			//jmsdo.listout(jmsdtp.Execute(dti.GetData()),"GROUP1","marker");
+			
+			//System.out.println(">>> po wysłaniu do Request. msgid = " + jmsdo.getMessageId());	
+			
+			jmsdo.listout(jmsdtp.Execute(dti.GetData()),"-1","test");
 			
 			System.out.println(">>> po wysłaniu do Request. msgid = " + jmsdo.getMessageId());		
 			
-			jmsdi.setCorrelation(jmsdo.getMessageId());		
+			//jmsdi.setCorrelation(jmsdo.getMessageId());		
 			
-			System.out.println(">>> po set corelationid");
+			//System.out.println(">>> po set corelationid");
 			
 			listFromResponseQueue = jmsdi.GetData();
 			
